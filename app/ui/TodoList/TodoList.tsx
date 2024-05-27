@@ -15,14 +15,14 @@ import {
 } from "@dnd-kit/core";
 import Droppable from "../Droppable/Droppable";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { arrayMove, moveBetweenContainers } from "../../../lib/array";
-import { Tasks, Containers } from "definitions";
+import { arrayMove, moveBetweenContainers } from "@/lib/array";
+import { Tasks, Containers, Task } from "definitions";
 import { Task as TaskComponent } from "../Task/Task";
-import { task_to_title } from "../../../lib/constants";
+import { task_to_title } from "@/lib/constants";
 
 export default function TodoList({ tasks }: { tasks: Tasks }) {
   const [items, setItems] = useState<Tasks>(tasks); // state of sortable items that use in dndkit lib, the identifiers should be a strings or number
-  const [active, setActive] = useState<string | null>(null); // state of active item when user start to drag an item
+  const [active, setActive] = useState<Task | null>(null); // state of active item when user start to drag an item
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -33,8 +33,16 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
   );
 
   function handleDragStart({ active }: { active: Active }) {
-    setActive(active.id as string);
+    const activeContainer: Containers =
+      active.data.current?.sortable.containerId;
+
+    const task = items[activeContainer].find((i) => i.id === active.id);
+
+    if (!task) return null;
+
+    setActive(task);
   }
+
   const handleDragCancel = () => setActive(null);
   const handleDragOver = ({
     active,
@@ -62,13 +70,17 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
             ? items[overContainer].length + 1
             : over.data.current?.sortable.index;
 
-        return moveBetweenContainers(
+        const task = items[activeContainer].find((i) => i.id === active.id);
+
+        if (!task) return item;
+
+        return moveBetweenContainers<Tasks, Containers, Task>(
           items,
           activeContainer,
           activeIndex,
           overContainer,
           overIndex,
-          { title: active.id as string },
+          task,
         );
       });
     }
@@ -129,14 +141,15 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
             key={item}
             id={item}
             title={task_to_title[item as Containers]}
-            items={items[item as Containers].map(
-              (i: { title: string }) => i.title,
-            )}
+            items={items[item as Containers].map((i) => i.id)}
+            data={items[item as Containers]}
           />
         ))}
       </div>
       <DragOverlay>
-        {active ? <TaskComponent title={active} /> : null}
+        {active ? (
+          <TaskComponent title={active.title} desciption={active.description} />
+        ) : null}
       </DragOverlay>
     </DndContext>
   );
