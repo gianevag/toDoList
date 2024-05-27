@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardDescription,
@@ -10,9 +12,9 @@ type TaskProps = {
   desciption?: string;
 };
 
-export default function Task({title, desciption }: TaskProps) {
+export function Task({ title, desciption }: TaskProps) {
   return (
-    <Card className="w-[250px]">
+    <Card className="min-w-[250px]">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         {desciption && <CardDescription>{desciption}</CardDescription>}
