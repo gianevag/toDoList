@@ -1,10 +1,16 @@
 import TodoList from "./ui/TodoList/TodoList";
-import { tasks } from "../lib/data";
+import { fetchTasks } from "@/data/tasks";
+import { groupBy } from "@/lib/array";
+import { Tasks } from "definitions";
 
-export default function Home() {
+export default async function Home() {
+  const tasks_data = await fetchTasks();
+
+  const groupedTasks = groupBy(tasks_data, "type") as Tasks;
+
   return (
     <main>
-      <TodoList tasks={tasks} />
+      <TodoList tasks={groupedTasks} />
     </main>
   );
 }

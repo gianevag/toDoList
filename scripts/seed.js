@@ -11,7 +11,8 @@ const seedTask = async (client) => {
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         type VARCHAR(255) NOT NULL,
         title VARCHAR(255) NOT NULL,
-        description VARCHAR(255)
+        description VARCHAR(255),
+        order_task INT NOT NULL
       );
     `;
 
@@ -20,15 +21,15 @@ const seedTask = async (client) => {
 
    const queries = Object.keys(tasks).map((taskType) => {
         return tasks[taskType].map((task) => {
-          return {taskType, title: task?.title, description: task?.description || null}
+          return {taskType, title: task?.title, description: task?.description || null, order_task: task?.order_task}
         });
       });
 
   
     // Insert data into the "tasks" table
     await Promise.all(queries.flat().map((query) => {
-      return client.sql`INSERT INTO tasks (type, title, description)
-            VALUES (${query.taskType}, ${query?.title}, ${query?.description});`;
+      return client.sql`INSERT INTO tasks (type, title, description, order_task)
+            VALUES (${query.taskType}, ${query?.title}, ${query?.description}, ${query?.order_task});`;
     }));
 
     console.log("Seeded tasks")

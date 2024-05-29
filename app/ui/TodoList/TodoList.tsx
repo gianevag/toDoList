@@ -15,13 +15,26 @@ import {
 } from "@dnd-kit/core";
 import Droppable from "../Droppable/Droppable";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { arrayMove, moveBetweenContainers } from "@/lib/array";
+import { moveBetweenContainers } from "@/lib/array";
 import { Tasks, Containers, Task } from "definitions";
 import { Task as TaskComponent } from "../Task/Task";
 import { task_to_title } from "@/lib/constants";
+import { arrayMove } from "@dnd-kit/sortable";
+import { reorderTasks } from "@/data/tasks";
+import { debounce } from "@/lib/debounce";
+
+let orderContainers: Containers[] = ["todo", "doing", "done"];
+
+// proccessedTasks function is used to order the tasks in the containers
+const proccessedTasks = (tasks: Tasks) => {
+  return orderContainers.reduce((acc, container) => {
+    acc[container] = tasks[container] || [];
+    return acc;
+  }, {} as Tasks);
+};
 
 export default function TodoList({ tasks }: { tasks: Tasks }) {
-  const [items, setItems] = useState<Tasks>(tasks); // state of sortable items that use in dndkit lib, the identifiers should be a strings or number
+  const [items, setItems] = useState<Tasks>(proccessedTasks(tasks)); // state of sortable items that use in dndkit lib, the identifiers should be a strings or number
   const [active, setActive] = useState<Task | null>(null); // state of active item when user start to drag an item
 
   const sensors = useSensors(
@@ -29,7 +42,7 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    }),
+    })
   );
 
   function handleDragStart({ active }: { active: Active }) {
@@ -74,18 +87,20 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
 
         if (!task) return item;
 
-        return moveBetweenContainers<Tasks, Containers, Task>(
+        const newItems = moveBetweenContainers<Tasks, Containers, Task>(
           items,
           activeContainer,
           activeIndex,
           overContainer,
           overIndex,
-          task,
+          task
         );
+
+        return newItems;
       });
     }
   };
-  function handleDragEnd({
+  async function handleDragEnd({
     active,
     over,
   }: {
@@ -97,7 +112,10 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
       return;
     }
 
-    if (active.id !== over.id) {
+    if (
+      active.id !== over.id ||
+      over.data.current?.sortable.items.length === 1
+    ) {
       const activeContainer: Containers =
         active.data.current?.sortable.containerId;
       const overContainer: Containers =
@@ -108,20 +126,22 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
           ? items[overContainer].length + 1
           : over.data.current?.sortable.index;
 
-      setItems((items) => {
-        let newItems = { ...items };
-        if (activeContainer === overContainer) {
-          newItems = {
-            ...items,
-            [overContainer]: arrayMove(
-              items[overContainer],
-              activeIndex,
-              overIndex,
-            ),
-          };
-        }
-        return newItems;
-      });
+      let newItems = { ...items };
+
+      if (activeContainer === overContainer) {
+        newItems = {
+          ...items,
+          [overContainer]: arrayMove(
+            items[overContainer],
+            activeIndex,
+            overIndex
+          ),
+        };
+      }
+
+      setItems(newItems);
+      // prevent multiple calls
+      debounce(() => reorderTasks(newItems))();
     }
     setActive(null);
   }
@@ -136,13 +156,13 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
       onDragEnd={handleDragEnd}
     >
       <div className="flex m-auto max-w-[1100px]">
-        {Object.keys(items).map((item) => (
+        {orderContainers.map((item) => (
           <Droppable
             key={item}
             id={item}
-            title={task_to_title[item as Containers]}
-            items={items[item as Containers].map((i) => i.id)}
-            data={items[item as Containers]}
+            title={task_to_title[item]}
+            items={items[item].map((i) => i.id)}
+            data={items[item]}
           />
         ))}
       </div>
