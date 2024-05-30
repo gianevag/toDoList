@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DndContext,
   closestCenter,
@@ -34,8 +34,21 @@ const proccessedTasks = (tasks: Tasks) => {
 };
 
 export default function TodoList({ tasks }: { tasks: Tasks }) {
-  const [items, setItems] = useState<Tasks>(proccessedTasks(tasks)); // state of sortable items that use in dndkit lib, the identifiers should be a strings or number
+  const ptasks = proccessedTasks(tasks);
+
+  const [items, setItems] = useState<Tasks>(ptasks); // state of sortable items that use in dndkit lib, the identifiers should be a strings or number
   const [active, setActive] = useState<Task | null>(null); // state of active item when user start to drag an item
+
+  // useEffect to update the items state when the tasks prop is changed from API
+  useEffect(() => {
+    setItems((item) => {
+      return {
+        ...item,
+        todo: ptasks.todo,
+      };
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ptasks.todo.length]);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -155,7 +168,7 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex m-auto max-w-[1100px]">
+      <div className="flex">
         {orderContainers.map((item) => (
           <Droppable
             key={item}
