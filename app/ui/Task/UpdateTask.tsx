@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { deleteTask } from "@/data/tasks";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
