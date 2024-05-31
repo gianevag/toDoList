@@ -53,12 +53,16 @@ export const reorderTasks =  async (tasks: Tasks) => {
 
 
 const FormDataSchema = z.object({
+    id: z.string(),
     title: z.string().trim().min(1, {
         message: 'Task name is required',
     }),
-    description: z.string()
+    description: z.string(),
+    type: z.string(),
 })
 
+const CreateFormDataSchema = FormDataSchema.omit({ id: true, type: true})
+const DeleteFormDataSchema = FormDataSchema.omit({ title: true, description: true})
 
 export type State = {
   errors?: {
@@ -69,7 +73,7 @@ export type State = {
 };
 
 export const createTask = async (prevState: State, formData: FormData) => { 
-    const validatedFields = FormDataSchema.safeParse(Object.fromEntries(formData));
+    const validatedFields = CreateFormDataSchema.safeParse(Object.fromEntries(formData));
 
     if (!validatedFields.success) {
         return {
@@ -95,4 +99,29 @@ export const createTask = async (prevState: State, formData: FormData) => {
 
     revalidatePath('/'); // clear cache and refetch
     redirect('/'); // redirect to another page
+}
+
+export const deleteTask = async (id: string) => { 
+    console.log("deleteTask", id);
+    
+    if (!id) {
+        return {
+            message: "Invalid Task ID."
+        }
+    }
+
+    try {
+        await sql`
+            DELETE FROM tasks
+            WHERE id = ${id}
+        `
+        revalidatePath('/');
+    } catch (error) {
+        return {
+            message: 'Database Error: Failed to Create Invoice.',
+        };
+    }
+
+     // clear cache and refetch
+    
 }

@@ -2,7 +2,7 @@ import TodoList from "./ui/TodoList/TodoList";
 import { fetchTasks } from "@/data/tasks";
 import { groupBy } from "@/lib/array";
 import { Tasks } from "definitions";
-import { AddTaskButton } from "./ui/AddTask/AddTask";
+import { AddTaskButton } from "./ui/Task/AddTask";
 
 export default async function Home() {
   const tasks_data = await fetchTasks();

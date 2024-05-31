@@ -22,6 +22,7 @@ import { task_to_title } from "@/lib/constants";
 import { arrayMove } from "@dnd-kit/sortable";
 import { reorderTasks } from "@/data/tasks";
 import { debounce } from "@/lib/debounce";
+import { DeleteTaskButton } from "../Task/DeleteTask";
 
 let orderContainers: Containers[] = ["todo", "doing", "done"];
 
@@ -41,14 +42,9 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
 
   // useEffect to update the items state when the tasks prop is changed from API
   useEffect(() => {
-    setItems((item) => {
-      return {
-        ...item,
-        todo: ptasks.todo,
-      };
-    });
+    setItems(ptasks);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ptasks.todo.length]);
+  }, [JSON.stringify(ptasks)]);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -181,7 +177,13 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
       </div>
       <DragOverlay>
         {active ? (
-          <TaskComponent title={active.title} desciption={active.description} />
+          <div className="flex flex-row">
+            <TaskComponent
+              title={active.title}
+              desciption={active.description}
+            />
+            <DeleteTaskButton id={active.id} />
+          </div>
         ) : null}
       </DragOverlay>
     </DndContext>
