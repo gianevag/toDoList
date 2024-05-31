@@ -17,6 +17,9 @@ importers:
       '@dnd-kit/utilities':
         specifier: 3.2.2
         version: 3.2.2(react@18.2.0)
+      '@heroicons/react':
+        specifier: ^2.1.3
+        version: 2.1.3(react@18.2.0)
       '@radix-ui/react-dialog':
         specifier: ^1.0.5
         version: 1.0.5(@types/react-dom@18.2.18)(@types/react@18.2.48)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -144,6 +147,11 @@ packages:
   '@eslint/js@8.56.0':
     resolution: {integrity: sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  '@heroicons/react@2.1.3':
+    resolution: {integrity: sha512-fEcPfo4oN345SoqdlCDdSa4ivjaKbk0jTd+oubcgNxnNgAfzysfwWfQUr+51wigiWHQQRiZNd1Ao0M5Y3M2EGg==}
+    peerDependencies:
+      react: '>= 16'
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -2008,6 +2016,10 @@ snapshots:
       - supports-color
 
   '@eslint/js@8.56.0': {}
+
+  '@heroicons/react@2.1.3(react@18.2.0)':
+    dependencies:
+      react: 18.2.0
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
