@@ -25,6 +25,7 @@ export default function Page({ params }: { params: { id: string } }) {
       }
     }
     fetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
