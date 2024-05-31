@@ -1,5 +1,5 @@
 const { db } = require('@vercel/postgres');
-const { tasks } = require("../lib/data.js");
+const { tasks } = require("./data.js");
 
 const seedTask = async (client) => {
   try {

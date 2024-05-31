@@ -16,8 +16,10 @@ export function Task({ title, desciption }: TaskProps) {
   return (
     <Card className="min-w-[250px]">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        {desciption && <CardDescription>{desciption}</CardDescription>}
+        <div className="flex flex-col justify-center grow">
+          <CardTitle>{title}</CardTitle>
+          {desciption && <CardDescription>{desciption}</CardDescription>}
+        </div>
       </CardHeader>
     </Card>
   );

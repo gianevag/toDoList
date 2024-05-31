@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DndContext,
   closestCenter,
@@ -13,15 +13,17 @@ import {
   type Active,
   type Over,
 } from "@dnd-kit/core";
-import Droppable from "../Droppable/Droppable";
+import Droppable from "@/app/ui/Droppable/Droppable";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { moveBetweenContainers } from "@/lib/array";
 import { Tasks, Containers, Task } from "definitions";
-import { Task as TaskComponent } from "../Task/Task";
+import { Task as TaskComponent } from "@/app/ui/Task/Task";
 import { task_to_title } from "@/lib/constants";
 import { arrayMove } from "@dnd-kit/sortable";
 import { reorderTasks } from "@/data/tasks";
 import { debounce } from "@/lib/debounce";
+import { DeleteTaskButton } from "@/app/ui/Task/Buttons/DeleteTask";
+import { UpdateTaskButton } from "@/app/ui/Task/Buttons/UpdateTask";
 
 let orderContainers: Containers[] = ["todo", "doing", "done"];
 
@@ -34,8 +36,16 @@ const proccessedTasks = (tasks: Tasks) => {
 };
 
 export default function TodoList({ tasks }: { tasks: Tasks }) {
-  const [items, setItems] = useState<Tasks>(proccessedTasks(tasks)); // state of sortable items that use in dndkit lib, the identifiers should be a strings or number
+  const ptasks = proccessedTasks(tasks);
+
+  const [items, setItems] = useState<Tasks>(ptasks); // state of sortable items that use in dndkit lib, the identifiers should be a strings or number
   const [active, setActive] = useState<Task | null>(null); // state of active item when user start to drag an item
+
+  // useEffect to update the items state when the tasks prop is changed from API
+  useEffect(() => {
+    setItems(ptasks);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(ptasks)]);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -155,7 +165,7 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex m-auto max-w-[1100px]">
+      <div className="flex">
         {orderContainers.map((item) => (
           <Droppable
             key={item}
@@ -168,7 +178,16 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
       </div>
       <DragOverlay>
         {active ? (
-          <TaskComponent title={active.title} desciption={active.description} />
+          <div className="flex flex-row">
+            <TaskComponent
+              title={active.title}
+              desciption={active.description}
+            />
+            <div className="flex flex-row pt-1 relative right-[70px]">
+              <UpdateTaskButton id={active.id} />
+              <DeleteTaskButton id={active.id} />
+            </div>
+          </div>
         ) : null}
       </DragOverlay>
     </DndContext>
