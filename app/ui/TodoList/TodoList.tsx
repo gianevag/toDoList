@@ -13,17 +13,17 @@ import {
   type Active,
   type Over,
 } from "@dnd-kit/core";
-import Droppable from "../Droppable/Droppable";
+import Droppable from "@/app/ui/Droppable/Droppable";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { moveBetweenContainers } from "@/lib/array";
 import { Tasks, Containers, Task } from "definitions";
-import { Task as TaskComponent } from "../Task/Task";
+import { Task as TaskComponent } from "@/app/ui/Task/Task";
 import { task_to_title } from "@/lib/constants";
 import { arrayMove } from "@dnd-kit/sortable";
 import { reorderTasks } from "@/data/tasks";
 import { debounce } from "@/lib/debounce";
-import { DeleteTaskButton } from "../Task/DeleteTask";
-import { UpdateTaskButton } from "../Task/UpdateTask";
+import { DeleteTaskButton } from "@/app/ui/Task/Buttons/DeleteTask";
+import { UpdateTaskButton } from "@/app/ui/Task/Buttons/UpdateTask";
 
 let orderContainers: Containers[] = ["todo", "doing", "done"];
 

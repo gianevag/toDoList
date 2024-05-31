@@ -8,7 +8,7 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
-import { UpdateTask } from "../../../../ui/Task/update-task";
+import { UpdateTask } from "../../../../ui/Task/Forms/update-task";
 import { useEffect, useState } from "react";
 import { Task } from "definitions";
 import { fetchTask } from "@/data/tasks";

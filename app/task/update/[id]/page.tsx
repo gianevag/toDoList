@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-import { UpdateTask } from "../../../ui/Task/update-task";
+import { UpdateTask } from "@/app/ui/Task/Forms/update-task";
 import { fetchTask } from "@/data/tasks";
 
 export default async function Page({ params }: { params: { id: string } }) {

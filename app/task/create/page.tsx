@@ -1,6 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-
-import { CreateTask } from "../../ui/Task/create-task";
+import { CreateTask } from "@/app/ui/Task/Forms/create-task";
 
 export default function Page() {
   return (

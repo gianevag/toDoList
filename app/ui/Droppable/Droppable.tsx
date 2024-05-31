@@ -3,12 +3,12 @@
 import React from "react";
 import { UniqueIdentifier, useDroppable } from "@dnd-kit/core";
 import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
-import { List } from "../List/List";
-import { SortableItem } from "../SortableItem/SortableItem";
-import { Task } from "../Task/Task";
+import { List } from "@/app/ui/List/List";
+import { SortableItem } from "@/app/ui/SortableItem/SortableItem";
+import { Task } from "@/app/ui/Task/Task";
 import { Task as TTask } from "definitions";
-import { DeleteTaskButton } from "../Task/DeleteTask";
-import { UpdateTaskButton } from "../Task/UpdateTask";
+import { DeleteTaskButton } from "@/app/ui/Task/Buttons/DeleteTask";
+import { UpdateTaskButton } from "@/app/ui/Task/Buttons/UpdateTask";
 
 export default function Droppable({
   id,

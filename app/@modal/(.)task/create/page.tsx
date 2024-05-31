@@ -8,7 +8,7 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
-import { CreateTask } from "../../../ui/Task/create-task";
+import { CreateTask } from "../../../ui/Task/Forms/create-task";
 
 export default function Page() {
   const router = useRouter();
