@@ -8,6 +8,7 @@ import { SortableItem } from "../SortableItem/SortableItem";
 import { Task } from "../Task/Task";
 import { Task as TTask } from "definitions";
 import { DeleteTaskButton } from "../Task/DeleteTask";
+import { UpdateTaskButton } from "../Task/UpdateTask";
 
 export default function Droppable({
   id,
@@ -44,7 +45,10 @@ export default function Droppable({
                   desciption={taskData.description}
                 />
               </SortableItem>
-              <DeleteTaskButton id={item as string} />
+              <div className="flex flex-row pt-1 relative right-[70px]">
+                <UpdateTaskButton id={item as string} />
+                <DeleteTaskButton id={item as string} />
+              </div>
             </div>
           );
         })}

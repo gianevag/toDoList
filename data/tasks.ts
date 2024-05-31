@@ -22,6 +22,21 @@ export const fetchTasks = async () => {
 }
  
 
+export const fetchTask = async (id: string) => { 
+        if (!id) {
+            return null;
+        }
+    
+        try {
+            const { rows } = await sql<Task>`SELECT * FROM tasks WHERE id = ${id}`;
+            return rows[0];
+        } catch (error) {
+            console.log(error);
+            throw new Error('Failed to fetch task data.');
+        }
+}
+
+
 export const reorderTasks =  async (tasks: Tasks) => { 
 
     const reorderTasks = Object.keys(tasks).map((container) => { 
@@ -62,7 +77,7 @@ const FormDataSchema = z.object({
 })
 
 const CreateFormDataSchema = FormDataSchema.omit({ id: true, type: true})
-const DeleteFormDataSchema = FormDataSchema.omit({ title: true, description: true})
+const UpdateFormDataSchema = FormDataSchema.omit({ id: true, type: true})
 
 export type State = {
   errors?: {
@@ -94,6 +109,34 @@ export const createTask = async (prevState: State, formData: FormData) => {
     } catch (error) {
         return {
             message: 'Database Error: Failed to Create Invoice.',
+        };
+    }
+
+    revalidatePath('/'); // clear cache and refetch
+    redirect('/'); // redirect to another page
+}
+
+export const updateTask = async (id: string, prevState: State, formData: FormData) => {
+    const validatedFields = UpdateFormDataSchema.safeParse(Object.fromEntries(formData));
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error?.flatten().fieldErrors,
+            message: null
+        }
+    }
+
+    const { title, description } = validatedFields.data;
+
+    try {
+        await sql`
+            UPDATE tasks
+            SET title = ${title}, description = ${description}
+            WHERE id = ${id}
+        `
+    } catch (error) {
+        return {
+            message: 'Database Error: Failed to Update Task.',
         };
     }
 

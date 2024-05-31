@@ -23,6 +23,7 @@ import { arrayMove } from "@dnd-kit/sortable";
 import { reorderTasks } from "@/data/tasks";
 import { debounce } from "@/lib/debounce";
 import { DeleteTaskButton } from "../Task/DeleteTask";
+import { UpdateTaskButton } from "../Task/UpdateTask";
 
 let orderContainers: Containers[] = ["todo", "doing", "done"];
 
@@ -182,7 +183,10 @@ export default function TodoList({ tasks }: { tasks: Tasks }) {
               title={active.title}
               desciption={active.description}
             />
-            <DeleteTaskButton id={active.id} />
+            <div className="flex flex-row pt-1 relative right-[70px]">
+              <UpdateTaskButton id={active.id} />
+              <DeleteTaskButton id={active.id} />
+            </div>
           </div>
         ) : null}
       </DragOverlay>
