@@ -128,7 +128,7 @@ POSTGRES_PASSWORD="XXXXXXXXXXXXXXXXXXXX"
 POSTGRES_DATABASE="XXXXXXXXXXXXXXXXXXXX"
 ```
 
-4. Seed the database in order to create the task table and add some tasks to the table.:
+4. Seed the database to create the task table and add some tasks to the table:
 
 ```bash
 node run ./scripts/seed.js
