@@ -131,7 +131,7 @@ POSTGRES_DATABASE="XXXXXXXXXXXXXXXXXXXX"
 4. Seed the database to create the task table and add some tasks to the table:
 
 ```bash
-node run ./scripts/seed.js
+npm run seed
 ```
 
 5. Run the project:
