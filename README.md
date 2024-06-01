@@ -26,11 +26,11 @@ In this project, I used the following technologies:
 - [TailwindCSS](https://tailwindcss.com/) - CSS framework.
 
 
-##### Next.js
+#### Next.js
 
 I used Next.js with typescript template and I found the following props and cons of Next.js:
 
-Pros:
+**Pros:**
 - create folder-base routing for create and update task.
 - server-side redering out of the box for the main page.
 - easy integration with vercel storage for persisting the tasks state.
@@ -38,51 +38,51 @@ Pros:
 - great documentation with examples
 - community support
 
-Cons: 
+**Cons:**
 - it was difficult to understand the parallel and intercepting routing in order to make modal with shareable links.
 - It was difficult to debugg the client and server side code. 
 
-##### DndKit
+#### DndKit
 
 I used dndKit for drag and drop functionality between and across the lists. I found the following pros and cons of dndKit:
 
-Pros:
+**Pros:**
 - easy use sortable functionality in order to change the order of the tasks.
 - understand the base concept of the library from documentation.
 - support typescript for better development experience.
 - storybook documentation with a lot of examples.
 
-Cons:
+**Cons:**
 - it not provided the code of the examples and found it to the codesandbox.
 - it was realy difficult to understand the example code for sortable functionality between two droppable containers.
 - when use DragOverlay component I have memory leak issue.
 
-##### Shadcn
+#### Shadcn
 
 I used shadcn component library for UI elements like buttons, inputs, and modals. I found the following pros and cons of shadcn:
 
-Pros:
+**Pros:**
 - easy to use and understand the components.
 - has a lot of UI components.
 - found really flexible the concept of copy paste components.
 - has blocks components and support theming.
 - easy to integration with next.js project.
 
-Conss: 
+**Cons:** 
 - poor documentation, I should read the component code to understand the props and usage.
 - not many examples of the components.
 
-##### TailwindCSS
+#### TailwindCSS
 
 I used tailwindCSS only for layout styling and found the following pros and cons of tailwindCSS:
 
-Pros:
+**Pros:**
 - easy to understand the base concept of the framework.
 - easy to use the classes for styling.
 - well organized documentation with examples.
 - support theming and customizing the classes.
 
-Cons:
+**Cons:**
 - when use a lot of classes then the UI element looks like a mess. And you should use tools like `clsx` and `cva` to make the code more readable.
 - learning curve for remembering the classes and their usage.
 
