@@ -1,4 +1,4 @@
-ToDoList is a proof of concept project to demonstrate the use of NextJS framework with TypeScript. The project is a simple to-do list application that allows users to add, edit, and delete tasks to toDo, doing or done list. 
+ToDoList is a proof-of-concept project that demonstrates the use of the Next.js framework with TypeScript. The project is a simple to-do list application that allows users to add, edit, and delete tasks in the "To Do," "Doing," or "Done" lists.
 
 Demo: [ToDoList](https://to-do-list-gamma-dusky.vercel.app/)
 
@@ -8,11 +8,10 @@ Demo: [ToDoList](https://to-do-list-gamma-dusky.vercel.app/)
 
 As a user, I want to: 
 
-- Be able to add, edit and delete a task.
-- Be able to mark a task as toDo, doing or done.
-- Change the order of the tasks in the list or between the lists.
-- Persist the tasks state when the page is refreshed.
-
+- Add, edit, and delete a task.
+- Mark a task as "To Do," "Doing," or "Done."
+- Change the order of the tasks within a list or between lists.
+- Persist the task state when the page is refreshed.
 
 ### Technologies 💻
 
@@ -28,63 +27,63 @@ In this project, I used the following technologies:
 
 #### Next.js
 
-I used Next.js with typescript template and I found the following props and cons of Next.js:
+I used Next.js with typescript template and found the following props and cons of Next.js:
 
 **Pros:**
-- create folder-base routing for create and update task.
-- server-side redering out of the box for the main page.
-- easy integration with vercel storage for persisting the tasks state.
-- fetching and mutating data using server actions.
-- great documentation with examples
-- community support
+- Create folder-base routing for creating and updating task.
+- Provides server-side rendering out of the box for the main page.
+- Easily integrates with Vercel storage for persisting the task state.
+- Facilitates fetching and mutating data using server actions.
+- Offers great documentation with examples.
+- Has strong community support.
 
 **Cons:**
-- it was difficult to understand the parallel and intercepting routing in order to make modal with shareable links.
-- It was difficult to debugg the client and server side code. 
+- It was difficult to understand the parallel and intercepting routing to create modals with shareable links.
+- Debugging the client and server-side code was challenging.
 
 #### DndKit
 
-I used dndKit for drag and drop functionality between and across the lists. I found the following pros and cons of dndKit:
+I used dndKit for drag-and-drop functionality between and across lists. I found the following pros and cons of dndKit:
 
 **Pros:**
-- easy use sortable functionality in order to change the order of the tasks.
-- understand the base concept of the library from documentation.
-- support typescript for better development experience.
-- storybook documentation with a lot of examples.
+- Easy-to-use sortable functionality to change the order of tasks.
+- Comprehensive documentation that explains the library's base concepts.
+- Supports TypeScript for a better development experience.
+- Provides Storybook documentation with many examples.
 
 **Cons:**
-- it not provided the code of the examples and found it to the codesandbox.
-- it was realy difficult to understand the example code for sortable functionality between two droppable containers.
-- when use DragOverlay component I have memory leak issue.
+- Did not provide the code for the examples; it was found on CodeSandbox.
+- The example code for sortable functionality between two droppable containers was hard to understand.
+- Using the DragOverlay component caused a memory leak issue.
 
 #### Shadcn
 
 I used shadcn component library for UI elements like buttons, inputs, and modals. I found the following pros and cons of shadcn:
 
 **Pros:**
-- easy to use and understand the components.
-- has a lot of UI components.
-- found really flexible the concept of copy paste components.
-- has blocks components and support theming.
-- easy to integration with next.js project.
+- Easy to use and understand the components.
+- Includes many UI components.
+- The concept of copy-paste components is very flexible.
+- Offers block components and supports theming.
+- Easily integrates with Next.js projects.
 
 **Cons:** 
-- poor documentation, I should read the component code to understand the props and usage.
-- not many examples of the components.
+- Poor documentation; I had to read the component code to understand the props and usage.
+- Lacks many examples of the components.
 
 #### TailwindCSS
 
 I used tailwindCSS only for layout styling and found the following pros and cons of tailwindCSS:
 
 **Pros:**
-- easy to understand the base concept of the framework.
-- easy to use the classes for styling.
-- well organized documentation with examples.
-- support theming and customizing the classes.
+- Easy to understand the framework's base concepts.
+- Convenient classes for styling.
+- Well-organized documentation with examples.
+- Supports theming and customizing the classes.
 
 **Cons:**
-- when use a lot of classes then the UI element looks like a mess. And you should use tools like `clsx` and `cva` to make the code more readable.
-- learning curve for remembering the classes and their usage.
+- Using many classes can make the UI element look messy. Tools like `clsx` and `cva` are needed to make the code more readable.
+- There is a learning curve for remembering the classes and their usage.
 
 
 | Name        | Documentation | Examples | Learning curve | My experience  |
@@ -147,4 +146,4 @@ npm run dev
 
 ---
 
-As conclusion, I found this simple project really challenging and interesting. I learned a lot of new things and technologies. I found the Next.js framework really powerful using server rendering and server actions. The dndKit library has a great documentation but I found really difficult to develop the cross listing drag and drop. The shadcn component library was surprisly flexible with component generator and the tailwindCSS framework was easy to use and understand, but the learning curve was high.
+In conclusion, I found this simple project both challenging and interesting. I learned a lot of new things and technologies. The Next.js framework proved to be powerful with its server rendering and server actions. The dndKit library has great documentation, but I found developing cross-listing drag-and-drop functionality very difficult. The shadcn component library was surprisingly flexible with its component generator, and the TailwindCSS framework was easy to use and understand, despite its high learning curve.
